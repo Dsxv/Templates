@@ -25,7 +25,7 @@ struct DSU{
 		if(size[a] < size[b]) // a must remain the greatest!!! :p 
 			swap(a,b) ;
 		parent[b] = parent[a] ;
-		size[a] += size[b] ;
+		rank[a] += rank[b] ;
 		return true ;
 	}
 } dsu ;
