@@ -3,15 +3,14 @@ using namespace std ;
 
 #define int long long
 
-const int MAXN = 1e5 + 10 ; // change this according to n
+const int N = 1e5 + 10 ; // change this according to n
 
 struct DSU{
-	int n = MAXN  ;
-	int parent[MAXN] , size[MAXN] ;
+	int parent[N] , val[N] ;
 	DSU(){
-		for(int i = 0 ; i < n ; i++) {
+		for(int i = 0 ; i < N ; i++) {
 			parent[i] = i ;
-			size[i] = 1 ;
+			val[i] = 1 ;
 		}
 	}
 	int gp(int v){ //get_parent
@@ -22,18 +21,29 @@ struct DSU{
 	bool merge(int a , int b){
 		a = gp(a) , b = gp(b) ;
 		if(a == b) return true ;
-		if(size[a] < size[b]) // a must remain the greatest!!! :p 
+		if(val[a] < val[b]) // a must remain the greatest!!! :p 
 			swap(a,b) ;
 		parent[b] = parent[a] ;
-		rank[a] += rank[b] ;
+		val[a] += val[b] ;
 		return true ;
 	}
 } dsu ;
 
-vector<int> G[MAXN] ;
+vector<int> G[N] ;
 
 int32_t main(){
-	
+	int n , q ;
+	cin >> n >> q ;
+	while(q--){
+		int t , u , v;
+		cin >> t >> u >> v;
+		u-- , v-- ;
+		if(t==1){
+			cout << "hree" ;
+		} else {
+			cout << "three" ;
+		}
+	}
 	return 0 ;
 }
 
