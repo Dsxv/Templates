@@ -3,11 +3,17 @@ using namespace std ;
 
 #define int long long
 
-const int N = 1e5 + 10 ; // change this according to n
 
 struct DSU{
-	int parent[N] , val[N] ;
+	vector<int> parent , val ;
+	int N ;
 	DSU(){
+		N = 10 ;
+	}
+	DSU(int n){
+		N = n ;
+		parent.resize(n) ;
+		val.resize(n) ;
 		for(int i = 0 ; i < N ; i++) {
 			parent[i] = i ;
 			val[i] = 1 ;
@@ -29,21 +35,10 @@ struct DSU{
 	}
 } dsu ;
 
-vector<int> G[N] ;
 
 int32_t main(){
 	int n , q ;
 	cin >> n >> q ;
-	while(q--){
-		int t , u , v;
-		cin >> t >> u >> v;
-		u-- , v-- ;
-		if(t==1){
-			cout << "hree" ;
-		} else {
-			cout << "three" ;
-		}
-	}
 	return 0 ;
 }
 
