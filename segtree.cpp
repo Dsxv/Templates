@@ -12,51 +12,75 @@ typedef tree<int, null_type , less<int> , rb_tree_tag,
 
 const int N = 2e5 + 10 ;
 
-int t[4*N] ;
-
-void build(int* a , int v , int tl , int tr){
-	if(tl == tr){
-		t[v] = a[tl] ;
-	}else{
-		int tm = (tl+tr)/2 ;
-		build(a, 2*v, tl, tm) ; build(a, 2*v+1, tm+1, tr) ;
-		t[v] = t[2*v] + t[2*v+1] ;
+struct Segtree{
+	vector<int> t ;
+	int n ;
+	
+	Segtree(){
+		n = N ;
+		t.resize(4*n) ;
 	}
-}
 
-int query(int v , int tl , int tr , int l , int r){
-	if(l > r){
-		return 0 ;
+	Segtree(int l){
+		n = l ;
+		t.resize(4*n) ;
 	}
-	if(tl == l && tr == r){
-		return t[v] ;
+	// v is current vertex in segtree , tl , tr in array
+	void build_util(int* a , int v , int tl , int tr){
+		if(tl == tr){
+			t[v] = a[tl] ;
+		}else{
+			int tm = (tl+tr)/2 ;
+			build_util(a, 2*v, tl, tm) ; build_util(a, 2*v+1, tm+1, tr) ;
+			t[v] = min(t[2*v] , t[2*v+1]) ;
+		}
 	}
-	int tm = (tl + tr) / 2 ;
-	return query(2*v, tl, tm, l, min(r,tm)) 
-		+ query(2*v + 1, tm + 1, tr, max(l,tm+1), r) ;
-}
+	
+	void build(int * a , int l){
+		n = l ;
+		build_util(a,1,0,n-1) ;
+	}
 
-void update(int v , int tl , int tr , int pos , int new_val){
-	if(tl == tr){
-		t[v] = new_val ;
-	}else{
+	int query_util(int v , int tl , int tr , int l , int r){
+		if(l > r){
+			return INT_MAX ;
+		}
+		if(tl == l && tr == r){
+			return t[v] ;
+		}
 		int tm = (tl + tr) / 2 ;
-		if(pos <= tm) // left jao
-			update(2*v, tl, tm, pos, new_val) ;
-		else 
-			update(2*v + 1, tm+1, tr, pos, new_val) ;
-		t[v] = t[2*v] + t[2*v + 1];
+		return min(query_util(2*v, tl, tm, l, min(r,tm)) 
+			, query_util(2*v + 1, tm + 1, tr, max(l,tm+1), r)) ;
 	}
-}
+
+	int query(int l , int r){
+		return query_util(1,0,n-1,l,r) ;
+	}
+
+	void update_util(int v , int tl , int tr , int pos , int new_val){
+		if(tl == tr){
+			t[v] = new_val ;
+		}else{
+			int tm = (tl + tr) / 2 ;
+			if(pos <= tm) // left jao
+				update_util(2*v, tl, tm, pos, new_val) ;
+			else 
+				update_util(2*v + 1, tm+1, tr, pos, new_val) ;
+			t[v] = min(t[2*v] , t[2*v + 1]);
+		}
+	}
+	
+	void update(int pos , int val){
+		 update_util(1,0,n-1,pos,val) ;
+	}
+
+} seg(N);
 
 
 int32_t main(){
-	int n ; 
-	cin >> n ;
-	int a[n] ;
-	for(int i = 0 ; i < n ; i++) cin >> a[i] ;
-	build(a,1,0,n-1) ; // segtree from 1 index
-	
+	// seg.build(a,n) ;
+	// seg.query(l,r) ;
+	// seg.update(pos,val) ;
 	return 0 ;
 }
 

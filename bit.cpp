@@ -9,24 +9,30 @@ using namespace __gnu_pbds ;
 typedef tree<int, null_type , less<int> , rb_tree_tag,
             tree_order_statistics_node_update>
         ordered_set  ;  
- 
 const int N = 1e6 ;
 
-int BIT[N] ;
-int total ;
-void update(int ind , int val){
-    for(int i = ind ; i <= N ; i += i&-i){
-        BIT[i] += val ;
-    }
-}
- 
-int query(int ind){
-    int sum = 0 ;
-    for(int i = ind ; i > 0 ; i -= i&-i){
-        sum += BIT[i] ;
-    }
-    return sum ;
-}
+struct BIT{
+	int n ;
+	vector<int> v; 
+	BIT(int n){
+		this->n = n ;
+		v.resize(n) ;
+	}
+	void update(int ind , int val){
+		ind++ ;
+		for(int i = ind ; i < n ; i += i&-i){
+			v[i] += val ;
+		}
+	}
+	int query(int ind){
+		ind++ ;
+		int sum = 0 ;
+		for(int i = ind ; i > 0 ; i -= i&-i){
+			sum += v[i] ;
+		}
+		return sum ;
+	}
+} bit(N);
 
 int32_t main(){
 	
