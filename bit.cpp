@@ -41,3 +41,4 @@ int32_t main(){
 	// query(x) == sum from 1 to x in BIT
 	return 0 ;
 }
+

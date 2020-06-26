@@ -93,8 +93,6 @@ int32_t main(){
 	// seg.build(a,n) ;
 	// seg.query(l,r) ;
 	// seg.update(pos,val) ;
-	ios :: sync_with_stdio(0) ;
-	cin.tie(0) ;
 	int t ;
 	cin >> t ;
 	int tc = 1 ;
@@ -127,6 +125,7 @@ int32_t main(){
 			l-- , r-- ;
 			l = fo[l] ;
 			r = fo[r] ;
+			if(l > r) swap(l,r) ;
 			cout << s.query(l,r).second + 1 << '\n' ;
 		}
 		tc++ ;

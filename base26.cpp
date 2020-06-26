@@ -19,7 +19,7 @@ int32_t main(){
 	int n; 
 	cin >> n ;
 	auto v = solve(n) ;
-	for(auto i : v) cout << i << " " ;
+	for(auto i : v) cout << i << " ";
 	return 0 ;
 }
 

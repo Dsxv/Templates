@@ -31,14 +31,14 @@ struct DSU{
 			swap(a,b) ;
 		parent[b] = parent[a] ;
 		val[a] += val[b] ;
-		return true ;
+		return false ;
 	}
 } dsu ;
 
 
 int32_t main(){
-	int n , q ;
-	cin >> n >> q ;
+	int n , m ;
+	cin >> n >> m ;
 	return 0 ;
 }
 
