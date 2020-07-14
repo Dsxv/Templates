@@ -60,7 +60,7 @@ int32_t main(){
 			}
 		}
 		for(auto j : temp) s.erase(j) ;
-		s.insert(i) ;
+		s.insert(i) ; // i is going to become the only element of the componenet added to it
 	}
 	cout << s.size() - 1 ;
 	return 0 ;
