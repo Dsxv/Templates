@@ -39,7 +39,7 @@ struct Trie{
 		for(int i = 30 ; i >= 0 ; i--){
 			bool id = (1LL<<i) & x ;
 			if(!t[cur][id]) id ^= 1;
-			ans |= (id<<i) ;
+			if(id) ans |= (1LL<<i) ;
 			id = t[cur][id] ;
 		}
 		return ans ;
