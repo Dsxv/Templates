@@ -76,14 +76,14 @@ struct Segtree{
 
 } ;
 
-vector<vector<int>> G ;
+vector<vector<int>> g ;
 vector<pair<int,int>> euler ;
 vector<int> fo ;
 
 void dfs(int start , int d = 0){
 	fo[start] = euler.size() ;
 	euler.push_back({d,start}) ;
-	for(auto i : G[start]){
+	for(auto i : g[start]){
 		dfs(i,d+1) ;
 		euler.push_back({d,start}) ;
 	}
@@ -98,37 +98,24 @@ int32_t main(){
 	int tc = 1 ;
 	while(t--){
 		int n ; 
-		cin >> n;
-		G.clear() ;
-		fo.clear() ;
-		euler.clear() ;
-		G.resize(n) ;
-		fo.resize(n) ;
-		for(int i = 0 ; i < n ; i++){
-			int m ;
-			cin >> m ;
-			G[i].resize(m) ;
-			for(int j = 0 ; j < m ; j++) {
-				cin >> G[i][j] ;
-				G[i][j]-- ;
-			}
+		cin >> n >> m;
+		g.clear() ; fo.clear() ; euler.clear() ;
+		g.resize(n) ; fo.resize(n) ;
+		for(int i = 0 ; i < m ; i++){
+			int f , s ;
+			cin >> f >> s ;
+			f-- , s-- ;
+			g[f].push_back(s) ;
+			g[s].push_back(f) ;
 		}
-		dfs(0) ;
-		Segtree s(2*n) ;
-		s.build(euler) ;
+		dfs(0) :
 		int q ;
-		cin >> q ;
-		cout << "Case "<< tc <<": \n";
 		while(q--){
 			int l , r ;
 			cin >> l >> r ;
 			l-- , r-- ;
-			l = fo[l] ;
-			r = fo[r] ;
-			if(l > r) swap(l,r) ;
-			cout << s.query(l,r).second + 1 << '\n' ;
+			int lca = s.query(min(fo[l],fo[r]) , max(fo[l] , fo[r])).second ;
 		}
-		tc++ ;
 	}
 	return 0 ;
 }
