@@ -33,12 +33,11 @@ struct DSU{
 		val[a] += val[b] ;
 		return false ;
 	}
-} dsu ;
+} ;
 
 
 int32_t main(){
-	int n , m ;
-	cin >> n >> m ;
+	
 	return 0 ;
 }
 
